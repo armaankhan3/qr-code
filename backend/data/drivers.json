@@ -56,5 +56,34 @@
     },
     "_id": "mesqu6go58maud",
     "createdAt": "2025-08-26T16:11:33.816Z"
+  },
+  {
+    "name": "armaan khan",
+    "email": "ak@gmail.com",
+    "password": "$2b$10$eRYivx/y/WyMIaGgTyX7wuQba/8.2d3orLsxHCdDqEzCEN664lQPu",
+    "age": "23",
+    "gender": "Male",
+    "address": "ef vdfv vfgg bf",
+    "licenseNumber": "23456653454",
+    "licensePhoto": "uploads\\1756227503946-licensePhoto.png",
+    "aadharNumber": "",
+    "aadharPhoto": "uploads\\1756227503980-aadharPhoto.png",
+    "driverPhoto": "uploads\\1756227503984-driverPhoto.png",
+    "experienceYears": "0",
+    "vehicle": {
+      "vehicleNumber": "34564hrt",
+      "vehicleType": "Auto",
+      "model": "sfdvds",
+      "color": "vsdvdfv",
+      "registrationNumber": "543",
+      "registrationPhoto": "uploads\\1756227504000-registrationPhoto.png",
+      "insuranceNumber": "3456",
+      "insurancePhoto": "uploads\\1756227504013-insurancePhoto.png",
+      "fitnessCertificatePhoto": "uploads\\1756227504040-fitnessCertificatePhoto.png",
+      "route": "rgfbg",
+      "qrCode": "https://qr-code-amber-mu.vercel.app/driver-qr/messif7buo0rov?tk=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lc3NpZjdidW8wcm92IiwiZXhwIjoxNzU4ODE5NTA0fQ.-tmzk1xygHryLMvwrgS-5lsPZFVKzdZ3la2PbCwjxT0"
+    },
+    "_id": "messif7buo0rov",
+    "createdAt": "2025-08-26T16:58:24.503Z"
   }
 ]
