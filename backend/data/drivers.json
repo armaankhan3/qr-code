@@ -1,0 +1,31 @@
+[
+  {
+    "name": "pappu gutli",
+    "email": "ak2@gmail.com",
+    "password": "$2b$10$JJj1Ue.BFalviiARCOa0aOUvQjL/p1drznUZvK8DCdpDaf0Utsz3O",
+    "age": "36",
+    "gender": "Male",
+    "address": "12weds",
+    "licenseNumber": "12345678",
+    "licensePhoto": "uploads\\1756198964248-licensePhoto.png",
+    "aadharNumber": "",
+    "aadharPhoto": "uploads\\1756198964256-aadharPhoto.png",
+    "driverPhoto": "uploads\\1756198964258-driverPhoto.png",
+    "experienceYears": "0",
+    "vehicle": {
+      "vehicleNumber": "12345",
+      "vehicleType": "Cab",
+      "model": "123",
+      "color": "1234r",
+      "registrationNumber": "1234",
+      "registrationPhoto": "uploads\\1756198964267-registrationPhoto.png",
+      "insuranceNumber": "1234",
+      "insurancePhoto": "uploads\\1756198964275-insurancePhoto.png",
+      "fitnessCertificatePhoto": "uploads\\1756198964281-fitnessCertificatePhoto.png",
+      "route": "12345",
+      "qrCode": "http://localhost:5176/driver-qr/mesbips6ynnaeg?tk=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lc2JpcHM2eW5uYWVnIiwiZXhwIjoxNzU4NzkwOTY0fQ.EVdsYqN4Yw5seovJcN5NklwY9WSvcBGgnCdrLp9yxoQ"
+    },
+    "_id": "mesbips6ynnaeg",
+    "createdAt": "2025-08-26T09:02:44.742Z"
+  }
+]
