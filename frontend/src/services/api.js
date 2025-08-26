@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const BASE = (import.meta.env && import.meta.env.VITE_API_BASE) || 'https://qr-code-r2q7.onrender.com';
+
 const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: BASE,
   headers: {
     'Content-Type': 'application/json',
   },

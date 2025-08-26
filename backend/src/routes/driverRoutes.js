@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/upload");
-const { registerDriver, getDriverById } = require("../controllers/driverController");
+const { registerDriver, getDriverById, getDriverProfile, updateDriverProfile, generateQrForDriver } = require("../controllers/driverController");
 
 // Multiple file fields
 const cpUpload = upload.fields([
@@ -15,6 +15,14 @@ const cpUpload = upload.fields([
 
 router.post("/register", cpUpload, registerDriver);
 
+// Public: QR access (requires token tk query param)
 router.get('/:id', getDriverById);
+
+// Owner-facing profile endpoints
+router.get('/:id/profile', getDriverProfile);
+router.put('/:id/profile', cpUpload, updateDriverProfile);
+
+// Generate a fresh QR for driver (owner action)
+router.post('/:id/generate-qr', generateQrForDriver);
 
 module.exports = router;

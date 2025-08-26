@@ -58,4 +58,49 @@ async function getDriverById(id) {
   return found || null;
 }
 
+async function updateDriver(id, updateObj) {
+  try {
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      const Driver = require('../models/vehicle');
+      const doc = await Driver.findById(id);
+      if (!doc) return null;
+      // deep merge shallowly
+      Object.keys(updateObj).forEach(k => {
+        if (k === 'vehicle') {
+          doc.vehicle = doc.vehicle || {};
+          Object.assign(doc.vehicle, updateObj.vehicle || {});
+        } else {
+          doc[k] = updateObj[k];
+        }
+      });
+      await doc.save();
+      return doc.toObject();
+    }
+  } catch (e) {
+    // fall through to file store
+  }
+
+  ensureDataDir();
+  const raw = fs.readFileSync(dbFile, 'utf8');
+  const arr = JSON.parse(raw || '[]');
+  const idx = arr.findIndex(d => String(d._id) === String(id));
+  if (idx === -1) return null;
+  const target = arr[idx];
+  // Apply update shallowly
+  Object.keys(updateObj).forEach(k => {
+    if (k === 'vehicle') {
+      target.vehicle = target.vehicle || {};
+      Object.assign(target.vehicle, updateObj.vehicle || {});
+    } else {
+      target[k] = updateObj[k];
+    }
+  });
+  target.updatedAt = new Date().toISOString();
+  arr[idx] = target;
+  fs.writeFileSync(dbFile, JSON.stringify(arr, null, 2), 'utf8');
+  return target;
+}
+
+module.exports = { saveDriver, getDriverById, updateDriver };
+
 module.exports = { saveDriver, getDriverById };
