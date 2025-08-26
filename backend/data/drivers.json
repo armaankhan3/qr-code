@@ -27,5 +27,34 @@
     },
     "_id": "mesbips6ynnaeg",
     "createdAt": "2025-08-26T09:02:44.742Z"
+  },
+  {
+    "name": "gvs2q",
+    "email": "ak9480232@gmail.com",
+    "password": "$2b$10$gw4mtmR8qevbbBVDilJbtel61RJTMxzh6n2XLocqE/ofWjsJlP9vW",
+    "age": "23",
+    "gender": "Female",
+    "address": "3r2fewdvf df",
+    "licenseNumber": "65432",
+    "licensePhoto": "uploads\\1756224693426-licensePhoto.png",
+    "aadharNumber": "",
+    "aadharPhoto": "uploads\\1756224693481-aadharPhoto.png",
+    "driverPhoto": "uploads\\1756224693505-driverPhoto.png",
+    "experienceYears": "0",
+    "vehicle": {
+      "vehicleNumber": "123456",
+      "vehicleType": "Cab",
+      "model": "34",
+      "color": "edf",
+      "registrationNumber": "1234",
+      "registrationPhoto": "uploads\\1756224693523-registrationPhoto.png",
+      "insuranceNumber": "1234",
+      "insurancePhoto": "uploads\\1756224693564-insurancePhoto.png",
+      "fitnessCertificatePhoto": "uploads\\1756224693573-fitnessCertificatePhoto.png",
+      "route": "wdfg",
+      "qrCode": "http://localhost:5176/driver-qr/mesqu6go58maud?tk=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1lc3F1NmdvNThtYXVkIiwiZXhwIjoxNzU4ODE2NjkzfQ.Uiivpcz0B6PW_uQ1VxdsVKfJb62i3Mj8jzJlAMNL8us"
+    },
+    "_id": "mesqu6go58maud",
+    "createdAt": "2025-08-26T16:11:33.816Z"
   }
 ]
