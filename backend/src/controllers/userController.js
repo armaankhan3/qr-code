@@ -41,6 +41,13 @@ exports.registerUser = async (req, res) => {
     }
 
     res.status(201).json({ message: "User registered", user });
+    // Also return a token so frontend can auto-login after registration
+    try {
+      const token = jwt.sign({ id: user._id || user._id }, process.env.JWT_SECRET || 'dev-secret', { expiresIn: '1d' });
+      return res.status(201).json({ message: 'User registered', user, token });
+    } catch (e) {
+      // token generation non-fatal
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

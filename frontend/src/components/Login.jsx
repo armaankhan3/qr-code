@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [msg, setMsg] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuthContext();
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -14,8 +16,12 @@ export default function Login() {
     try {
   const response = await api.post('/api/users/login', form);
   setMsg('Login successful!');
-  // Redirect to user dashboard (since backend does not return userType)
-  navigate('/user/dashboard');
+  // store token via context
+  if (response.data && response.data.token) {
+    login({ token: response.data.token, user: response.data.user || null });
+  }
+  // after login go to scan page
+  navigate('/scan');
     } catch (err) {
       setMsg('Login failed');
     }

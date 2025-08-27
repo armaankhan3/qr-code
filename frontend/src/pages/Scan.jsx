@@ -1,21 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import QRScanner from '../components/QRScanner';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import api from '../services/api';
+import { useAuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Scan() {
   const [driver, setDriver] = useState(null);
   const [error, setError] = useState('');
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // if not authenticated redirect to login
+    const token = localStorage.getItem('auth_token');
+    if (!token) navigate('/login');
+  }, []);
 
   const handleResult = async (decodedText) => {
     setError('');
     try {
-      // expect decodedText to be JSON like { id: '...' }
+      // expect decodedText to be JSON like { id: '...', tk: '...' } or a url containing id and tk
       let data;
-      try { data = JSON.parse(decodedText); } catch (e) { data = { id: decodedText }; }
+      try { data = JSON.parse(decodedText); } catch (e) {
+        // try parse as url
+        try {
+          const u = new URL(decodedText);
+          const parts = u.pathname.split('/').filter(Boolean);
+          const id = parts.pop();
+          const tk = u.searchParams.get('tk');
+          data = { id, tk };
+        } catch (err) {
+          data = { id: decodedText };
+        }
+      }
       if (!data.id) throw new Error('Invalid QR payload');
-      const res = await api.get(`/api/drivers/${data.id}`);
+      const url = `/api/drivers/${data.id}${data.tk ? `?tk=${encodeURIComponent(data.tk)}` : ''}`;
+      const res = await api.get(url);
       setDriver(res.data.driver);
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Could not fetch driver');

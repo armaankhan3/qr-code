@@ -1,17 +1,25 @@
 import { useState } from 'react';
 import api from '../../services/api';
+import { useAuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserRegisterForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' });
   const [msg, setMsg] = useState('');
+  const { login } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-  await api.post('/api/users/register', form);
+  const res = await api.post('/api/users/register', form);
       setMsg('Registration successful!');
+      if (res.data && res.data.token) {
+        login({ token: res.data.token, user: res.data.user || null });
+      }
+      navigate('/scan');
     } catch (err) {
       setMsg('Registration failed');
     }

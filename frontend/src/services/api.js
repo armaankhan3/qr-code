@@ -9,6 +9,15 @@ const api = axios.create({
   },
 });
 
+// helper to set auth token
+export function setAuthToken(token) {
+  if (token) {
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete api.defaults.headers.common['Authorization'];
+  }
+}
+
 export const registerUser = async (userData) => {
   try {
     const response = await api.post('/api/users/register', userData);
