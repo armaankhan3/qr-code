@@ -17,7 +17,7 @@ export default function DriverQRCode() {
       try {
   const params = new URLSearchParams(location.search);
   const tk = params.get('tk');
-  const url = tk ? `/api/drivers/${id}?tk=${encodeURIComponent(tk)}` : `/api/drivers/${id}`;
+  const url = tk ? `/drivers/${id}?tk=${encodeURIComponent(tk)}` : `/drivers/${id}`;
   const res = await api.get(url);
         setDriver(res.data.driver);
       } catch (err) {

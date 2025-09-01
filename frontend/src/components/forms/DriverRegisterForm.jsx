@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import api from '../../services/api';
 import QRCodeDisplay from '../../components/QRCodeDisplay';
+import { useAuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function DriverRegisterForm() {
   const [form, setForm] = useState({ name: '', email: '', password: '', age: '', gender: '', address: '', licenseNumber: '', aadharNumber: '', experienceYears: 0, vehicleNumber: '', vehicleType: '', model: '', color: '', registrationNumber: '', insuranceNumber: '', route: '' });
@@ -8,6 +10,8 @@ export default function DriverRegisterForm() {
   const [qrValue, setQrValue] = useState(null);
   const [qrLink, setQrLink] = useState(null);
   const [qrToken, setQrToken] = useState(null);
+  const [showQuickLogin, setShowQuickLogin] = useState(false);
+  const [quickCreds, setQuickCreds] = useState({ email: '', password: '' });
   const licensePhotoRef = useRef();
   const aadharPhotoRef = useRef();
   const driverPhotoRef = useRef();
@@ -16,6 +20,9 @@ export default function DriverRegisterForm() {
   const fitnessPhotoRef = useRef();
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const { login } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -32,16 +39,42 @@ export default function DriverRegisterForm() {
       if (insurancePhotoRef.current?.files[0]) formData.append('insurancePhoto', insurancePhotoRef.current.files[0]);
       if (fitnessPhotoRef.current?.files[0]) formData.append('fitnessCertificatePhoto', fitnessPhotoRef.current.files[0]);
 
-      const res = await api.post('/api/drivers/register', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      const res = await api.post('/drivers/register', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       setMsg('Registration successful!');
       if (res.data && res.data.qrLink) {
-  setQrLink(res.data.qrLink);
-  setQrValue(res.data.qrLink);
-  if (res.data.token) setQrToken(res.data.token);
+        setQrLink(res.data.qrLink);
+        setQrValue(res.data.qrLink);
+        // if server returned an auth token, log in and navigate to profile
+        if (res.data.authToken) {
+          login({ token: res.data.authToken, user: { _id: res.data.driverId, role: 'driver' } });
+          navigate('/profile');
+        }
       }
     } catch (err) {
       console.error(err);
-      setMsg('Registration failed');
+  const serverMsg = err?.response?.data?.message || 'Registration failed';
+  setMsg(serverMsg);
+      const lower = String(serverMsg).toLowerCase();
+      if (lower.includes('exist') || lower.includes('already')) {
+        setShowQuickLogin(true);
+        setQuickCreds({ email: form.email || '', password: '' });
+      }
+    }
+  };
+
+  const quickLogin = async () => {
+    try {
+      const res = await api.post('/users/login', quickCreds);
+      if (res.data?.token) {
+        login({ token: res.data.token, user: res.data.user || null });
+        if (res.data.user?.role === 'driver' && res.data.user?._id) {
+          navigate(`/driver/${res.data.user._id}/profile`);
+        } else {
+          navigate('/');
+        }
+      }
+    } catch (e) {
+      setMsg(e?.response?.data?.message || 'Login failed');
     }
   };
 
@@ -258,6 +291,22 @@ export default function DriverRegisterForm() {
                   : 'bg-red-100 text-red-700'
               }`}>
                 {msg}
+                {!msg.includes('successful') && (
+                  <div className="mt-2 text-sm">
+                    Already have an account? <a href="/login" className="text-primary-600">Login</a>
+                  </div>
+                )}
+              </div>
+            )}
+            {showQuickLogin && (
+              <div className="mt-4 p-4 bg-gray-50 rounded">
+                <div className="text-sm text-gray-700 mb-2">Quick login with your existing account</div>
+                <input value={quickCreds.email} onChange={e => setQuickCreds({ ...quickCreds, email: e.target.value })} placeholder="Email" className="input-field mb-2" />
+                <input value={quickCreds.password} onChange={e => setQuickCreds({ ...quickCreds, password: e.target.value })} placeholder="Password" type="password" className="input-field mb-2" />
+                <div className="flex gap-2">
+                  <button type="button" className="btn-primary" onClick={quickLogin}>Login</button>
+                  <button type="button" className="btn-secondary" onClick={() => setShowQuickLogin(false)}>Cancel</button>
+                </div>
               </div>
             )}
             {qrValue && (

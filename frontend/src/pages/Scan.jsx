@@ -11,6 +11,7 @@ export default function Scan() {
   const [error, setError] = useState('');
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     // if not authenticated redirect to login
@@ -36,7 +37,7 @@ export default function Scan() {
         }
       }
       if (!data.id) throw new Error('Invalid QR payload');
-      const url = `/api/drivers/${data.id}${data.tk ? `?tk=${encodeURIComponent(data.tk)}` : ''}`;
+  const url = `/drivers/${data.id}${data.tk ? `?tk=${encodeURIComponent(data.tk)}` : ''}`;
       const res = await api.get(url);
       setDriver(res.data.driver);
     } catch (err) {
@@ -50,7 +51,10 @@ export default function Scan() {
       <Navbar />
       <div className="max-w-3xl mx-auto px-4 py-8">
         <h2 className="text-2xl font-semibold mb-4">Scan Driver QR</h2>
-        <QRScanner onResult={handleResult} onError={setError} />
+        <div className="mb-4">
+          <button className="btn-primary" onClick={() => setRunning(r => !r)}>{running ? 'Stop Scan' : 'Start Scan'}</button>
+        </div>
+        <QRScanner onResult={handleResult} onError={setError} running={running} />
 
         {error && <div className="mt-4 text-red-600">{error}</div>}
 

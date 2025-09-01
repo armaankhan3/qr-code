@@ -10,6 +10,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import Scan from './pages/Scan';
 import DriverQRCode from './pages/DriverQRCode';
 import DriverProfile from './pages/DriverProfile';
+import UserProfile from './pages/UserProfile';
+import ProfileRouter from './pages/ProfileRouter';
 import Dashboard from './pages/Dashboard';
 
 
@@ -21,7 +23,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/driver/register" element={<DriverRegister />} />
-        <Route path="/login" element={<Login />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/profile" element={<ProfileRouter />} />
+  <Route path="/user/profile" element={<UserProfile />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/scan" element={<Scan />} />

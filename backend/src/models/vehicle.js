@@ -12,10 +12,10 @@ const driverSchema = new mongoose.Schema({
   
   // Identity Proof
   licenseNumber: { type: String, required: true, unique: true },
-  licensePhoto: { type: String, required: true }, // URL/path to uploaded license image
+  licensePhoto: { type: String }, // URL/path to uploaded license image
   aadharNumber: { type: String, required: true, unique: true },
-  aadharPhoto: { type: String, required: true }, // URL/path to uploaded ID photo
-  driverPhoto: { type: String, required: true }, // Selfie of driver
+  aadharPhoto: { type: String }, // URL/path to uploaded ID photo
+  driverPhoto: { type: String }, // Selfie of driver
   
   experienceYears: { type: Number, default: 0 },
 
@@ -24,11 +24,11 @@ const driverSchema = new mongoose.Schema({
     vehicleNumber: { type: String, required: true, unique: true },
     vehicleType: { type: String, enum: ["Bus", "Cab", "Auto", "Metro"], required: true },
     model: { type: String, required: true },
-    color: { type: String, required: true },
+  color: { type: String },
     registrationNumber: { type: String, required: true, unique: true },
-    registrationPhoto: { type: String, required: true }, // RC photo
-    insuranceNumber: { type: String, required: true, unique: true },
-    insurancePhoto: { type: String, required: true }, // Insurance proof
+  registrationPhoto: { type: String }, // RC photo
+  insuranceNumber: { type: String, unique: true },
+  insurancePhoto: { type: String }, // Insurance proof
     fitnessCertificatePhoto: { type: String }, // Optional, but recommended
     route: { type: String },
     qrCode: { type: String }

@@ -24,6 +24,7 @@ async function saveDriver(driverObj) {
       return m.toObject();
     }
   } catch (e) {
+    console.error('Mongoose saveDriver failed, falling back to file store:', e && e.message ? e.message : e);
     // fall through to file store
   }
 
@@ -102,5 +103,3 @@ async function updateDriver(id, updateObj) {
 }
 
 module.exports = { saveDriver, getDriverById, updateDriver };
-
-module.exports = { saveDriver, getDriverById };

@@ -14,16 +14,16 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-  const response = await api.post('/api/users/login', form);
+  const res = await api.post('/users/login', form);
   setMsg('Login successful!');
-  // store token via context
-  if (response.data && response.data.token) {
-    login({ token: response.data.token, user: response.data.user || null });
-  }
-  // after login go to scan page
-  navigate('/scan');
+  const token = res.data?.token || res?.token || null;
+  const user = res.data?.user || res?.user || null;
+  if (token) login({ token, user });
+  // go to profile router which will redirect by role
+  navigate('/profile');
     } catch (err) {
-      setMsg('Login failed');
+  const serverMsg = err?.response?.data?.message || err?.message || 'Login failed';
+  setMsg(serverMsg);
     }
   };
 

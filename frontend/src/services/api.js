@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE = (import.meta.env && import.meta.env.VITE_API_BASE) || 'https://qr-code-r2q7.onrender.com';
+const BASE = (import.meta.env && import.meta.env.VITE_API_BASE) || 'http://localhost:5001/api';
 
 const api = axios.create({
   baseURL: BASE,
@@ -20,19 +20,20 @@ export function setAuthToken(token) {
 
 export const registerUser = async (userData) => {
   try {
-    const response = await api.post('/api/users/register', userData);
+  const response = await api.post('/users/register', userData);
     return response.data;
   } catch (error) {
-    throw error.response ? error.response.data : error.message;
+  // preserve full axios error for caller
+  throw error;
   }
 };
 
 export const loginUser = async (credentials) => {
   try {
-    const response = await api.post('/api/users/login', credentials);
-    return response.data;
+  const response = await api.post('/users/login', credentials);
+  return response.data;
   } catch (error) {
-    throw error.response ? error.response.data : error.message;
+  throw error;
   }
 };
 

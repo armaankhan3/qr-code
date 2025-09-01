@@ -6,5 +6,34 @@
     "phone": "1234567898",
     "password": "$2b$10$QIe4WISYv8R9fPaGY90YBeYL4HIwQyj8DK76aOur6rucOnBO8AQgG",
     "createdAt": "2025-08-26T08:45:35.695Z"
+  },
+  {
+    "_id": "metqw17dy8g9n3",
+    "name": "armaan khan ",
+    "email": "ak9084232@gmail.com",
+    "phone": "9876543212",
+    "password": "$2b$10$.KeQwlsq0h1LfGo/nwXYJOfJf5wJ.PawIjpZ2bEm99NEhvJoXLq/W",
+    "contacts": [],
+    "createdAt": "2025-08-27T09:00:46.490Z"
+  },
+  {
+    "_id": "mewbza92nhlr2r",
+    "name": "armaan ",
+    "email": "armaan@gmail.com",
+    "phone": "12345678998",
+    "password": "$2b$10$/KK2LLV9L3YG6l/Vm3YCR.NJrbXuRJrRiJsWr3u5wpnTpFPxRBpYe",
+    "contacts": [],
+    "createdAt": "2025-08-29T04:26:42.470Z",
+    "role": "user"
+  },
+  {
+    "_id": "mf0v3x8iok7n3o",
+    "name": "papa",
+    "email": "ak@gmail.com",
+    "phone": "6268465687",
+    "password": "$2b$10$rEEXhxmOdv5GLlForNczHOJLpxze/gCBnepJj1Ez/G3d7KUT5EPi.",
+    "contacts": [],
+    "createdAt": "2025-09-01T08:33:16.290Z",
+    "role": "user"
   }
 ]
